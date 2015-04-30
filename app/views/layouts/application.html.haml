@@ -1,0 +1,24 @@
+!!!
+%html
+%head
+  %title TimeKeeper | Your online group Notebook
+  = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+  = javascript_include_tag 'application', 'data-turbolinks-track' => true
+  %link{:href=>"//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css", :rel=>"stylesheet"}
+  = csrf_meta_tags
+%body
+  %header
+    .header_inner
+      = link_to image_tag(''), root_path, id: "logo"
+      %nav
+        - if user_signed_in?
+          = link_to "", projects_path, class: "fa fa-life-ring"
+          = link_to "", notes_path, class: "fa fa-cog"
+          = link_to "", destroy_user_session_path, method: :delete, class: "fa fa-sign-out"
+        - else
+          = link_to "Sign In", new_user_session_path
+  %p.notice= notice
+  %p.alert= alert
+
+  = yield
+

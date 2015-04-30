@@ -1,0 +1,5 @@
+= simple_form_for @note do |f|
+  = f.input :title
+  = f.input :content, :input_html => {:rows => 5, :placeholder => "Enter some text."}
+  = f.button :submit, class: "button"
+  = link_to "Cancel", notes_path

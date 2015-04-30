@@ -1,0 +1,4 @@
+== README
+
+By the end of this, this app is gonna be what they call to generate...straight
+<tt>g</tt>.

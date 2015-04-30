@@ -1,0 +1,16 @@
+.wrapper_with_padding
+  %button= link_to "New Project", new_project_path
+  #notes.clearfix
+    - unless current_user.memberships.blank?
+      - current_user.memberships.each do |membership|
+        %a{ href: (url_for [membership.project])}
+          .note
+            %p.title= membership.project.title
+            %p.date= time_ago_in_words(membership.project.created_at)
+    - else
+      %h2 Add a Project
+      %p It appears you haven't created any projects yet... Lets fix that. Why don't you go ahead and create a new project.
+      %button= link_to "New Project", new_project_path
+
+
+

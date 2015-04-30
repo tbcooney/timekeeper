@@ -1,0 +1,61 @@
+#banner
+  .banner_content
+    %h1 TimeKeeper
+    %p Your online group note keeper. Never forget an idea again.
+
+    %button= link_to "Sign Up", new_user_registration_path
+
+#faq
+  .wrapper
+    %h2 one workspace
+    %h4  Imagine all your team communication in one place. That's TimeKeeper.
+    .wrapper
+      .faq
+        %i.fa.fa-clock-o
+        %h3 WHY TIMEKEEPER
+        %p TimeKeeper displays your work in a clean, easy-to-browse dashboard. Easily gather everything that matters to keep your group on the same page.
+      .faq
+        %i.fa.fa-dropbox
+        %h3 SHAREBOX
+        %p TimeKeeper works well on mobile and showcases your shots front and center. Try the demo on your smartphone to see how the mobile version feels.
+      .faq
+        %i.fa.fa-bell
+        %h3 NOTIFICATIONS
+        %p TimeKeeper maximizes the focus on your work. Configurable notifications for desktop, mobile push and email keep you as informed as you’d like.
+      .faq
+        %i.fa.fa-cog
+        %h3 CUSTOMIZABLE
+        %p TimeKeeper keeps the interface minimal, it's simple to find what you're looking for. Forget wasting hours managing notes, we'll manage them for you.
+
+#callouts
+  .callout_inner
+    .wrapper
+      .callout
+        %h2 timekeeper
+        %h3 Free
+        %button= link_to "Sign Up", new_user_registration_path
+        %h4 Organize your group projects.
+        %p Limited ShareBox storage<br>Keep everything together <br>Workspace for a single project
+      .callout
+        .coming-soon
+          %h2 timekeeper
+          %h3 Premium
+          %button= "Go Premium"
+          %h4 Upgrade to work smarter.
+          %p Educational pricing<br>Sync across all devices<br>Workspace for daily projects
+      .callout
+        .coming-soon
+          %h2 timekeeper
+          %h3 Business
+          %button= "Get Started"
+          %h4 Get TimeKeeper for the team.
+          %p All of Evernote Free <br>Offline access to projects<br>Centralized administration
+
+#testimonial
+  .wrapper
+    %p.quote Available on everything you use every day. Get it now.
+    = link_to image_tag( 'apple_store.png'), 'http://www.google.com', class: "store_logo"
+    = link_to image_tag( 'google_play.png'), 'http://www.google.com'
+
+%footer
+  %p.title handcrafted with ♥ in waterloo  © 2015 vega studios. all rights reserved.
