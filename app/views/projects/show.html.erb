@@ -10,7 +10,7 @@
                 <li role="presentation"><a href="#notes" aria-controls="notes" role="tab" data-toggle="tab"><i class="fa fa-fw fa-list-ul"> Notes</a></li></i>
                 <li role="presentation"><a href="#documents" aria-controls="documents" role="tab" data-toggle="tab"><i class="fa fa-fw fa-file"> Documents</a></li></i>
                 <li role="presentation" class="dropdown-header">Settings</li>
-                <li role="presentation"><a href="#members" aria-controls="members" role="tab" data-toggle="tab"><i class="fa fa-fw fa-user-plus"> Invite</a></li></i>
+                <li role="presentation"><a href="#invite" aria-controls="invite" role="tab" data-toggle="tab"><i class="fa fa-fw fa-user-plus"> Invite</a></li></i>
                 <li role="presentation"><a href="#members" aria-controls="members" role="tab" data-toggle="tab"><i class="fa fa-fw fa-users"> Manage</a></li></i>
             </ul>
         </div>
@@ -107,9 +107,20 @@
       </div>
     </div>
     <!-- End Members tab -->
+    <!-- Start Invite tab -->
+    <div role="tabpanel" class="tab-pane" id="invite">
+      <div class="col-md-12">
+        <h3 class="extra-margin-top">Invite User</h3>
+
+          <%= simple_form_for(User.new, url: user_invitation_path,
+                                        html: { class: 'form-inline'}) do |f| %>
+            <%= f.input :email, placeholder: 'Email', label: false %>
+            <%= f.button :submit, 'Invite User', class: 'button' %>
+            <% end %>
+      </div>
+    </div>
+    <!-- End Invite tab -->
 </div>
-
-
 
 
 
