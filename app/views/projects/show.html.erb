@@ -103,6 +103,13 @@
               </tr>
           </tbody>
         </table>
+        <h3 class="extra-margin-top">Invite User</h3>
+
+          <%= simple_form_for(User.new, url: user_invitation_path,
+                                        html: { class: 'form-inline'}) do |f| %>
+            <%= f.input :email, placeholder: 'Email', label: false %>
+            <%= f.button :submit, 'Invite User', class: 'button' %>
+            <% end %>
         </div>
       </div>
     </div>
