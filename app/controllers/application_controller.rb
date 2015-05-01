@@ -10,6 +10,7 @@ private
   end
 
   def after_invite_path_for(resource)
-    root_url
+    invited_user = User.find_by_email(resource.email)
+    after_sign_in_path_for(resource)
   end
 end

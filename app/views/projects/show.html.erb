@@ -121,6 +121,7 @@
 
           <%= simple_form_for(User.new, url: user_invitation_path,
                                         html: { class: 'form-inline'}) do |f| %>
+            <%= f.hidden_field :project_id, :value => params[:id] %>
             <%= f.input :email, placeholder: 'Email', label: false %>
             <%= f.button :submit, 'Invite User', class: 'button' %>
             <% end %>
