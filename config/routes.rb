@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  
+
   resources :projects do
   	get 'join' => 'projects#join'
     resources :notes, :documents

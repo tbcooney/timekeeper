@@ -58,16 +58,19 @@
       color: white;
       margin: 0;
       letter-spacing: 1px;
+      font-size: 2rem;
     }
     .date {
       position: relative;
       color: $purple;
-      font-size: 1.05rem;
     }
   }
 }
 
 /* Sidebar Styles */
+.dropdown-header {
+    border-bottom: 1px solid;
+}
 
 .sidebar-nav {
     position: absolute;
@@ -81,6 +84,10 @@
 .sidebar-nav li {
     text-indent: 20px;
     line-height: 40px;
+}
+
+.sidebar-nav li i .fa-fw{
+    margin-left: 5px;
 }
 
 .sidebar-nav li a {
