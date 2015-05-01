@@ -1,90 +1,109 @@
-<div class="wrapper_with_padding">
-	<div class="note_show">
-		<div class="page-header">
-		<h1><%= @project.title %></h1>
-		<%= link_to "Edit", edit_project_path(@project), :class => "button" %>
-		<%= link_to "Delete", project_path(@project), method: :delete, data: {confirm: "Are you sure?"}, :class => "button" %>
-		</div>
-	</div>
-	<div class="row">
-	<div role="tabpanel">
+<div id="wrapper">
 
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#notes" aria-controls="notes" role="tab" data-toggle="tab">Notes</a></li>
-    <li role="presentation"><a href="#documents" aria-controls="documents" role="tab" data-toggle="tab">Documents</a></li>
-    <li role="presentation"><a href="#members" aria-controls="members" role="tab" data-toggle="tab">Members</a></li>
-  </ul>
-
-<div class="tab-content">
-	<!-- Start Notes tab -->
-  <div role="tabpanel" class="tab-pane active" id="notes">
-  	<div class="col-md-12">
-			<h3>Notes<button type="button" class="button" data-toggle="modal" data-target="#noteModal">+</button></h3>
-			<!-- Button trigger modal -->
-			<div id="notes" class="clearfix">
-					<% @project.notes.each do |note| %>
-						<%= link_to note do %>
-							<div class="note">
-								<p class="title"><%= note.title %></p>
-								<p class="date"><%= time_ago_in_words(note.created_at) %> ago</p>
-							</div>
-						<% end %>
-					<% end %>
-			</div>
-		</div>
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <%= link_to "TimeKeeper", projects_path %>
+                </li>
+                <li role="presentation" class="active"><a href="#notes" aria-controls="notes" role="tab" data-toggle="tab">Notes</a></li>
+                <li role="presentation"><a href="#documents" aria-controls="documents" role="tab" data-toggle="tab">Documents</a></li>
+       					<li role="presentation"><a href="#members" aria-controls="members" role="tab" data-toggle="tab">Members</a></li>
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+<div id="page-content-wrapper">
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header"><%= @project.title %> <small>Dashboard Overview</small></h1>
+    </div>
   </div>
-  <!-- End Notes tab -->
-  <!-- Start Documents tab -->
-  <div role="tabpanel" class="tab-pane" id="documents">
-  	<div class="col-md-12">
+  <div class="row">
+        <div class="tab-content">
+          <!-- Start Notes tab -->
+          <div role="tabpanel" class="tab-pane active" id="notes">
+            <div class="col-md-12">
+              <button type="button" class="button" data-toggle="modal" data-target="#noteModal">+</button>
+              <!-- Button trigger modal -->
+              <div id="notes" class="clearfix">
+              <% unless @project.notes.blank? %>
+                  <% @project.notes.each do |note| %>
+                    <%= link_to note do %>
+                      <div class="note">
+                        <p class="title"><%= note.title %></p>
+                        <p class="date"><%= time_ago_in_words(note.created_at) %> ago</p>
+                      </div>
+                    <% end %>
+                  <% end %>
+                  <% else %>
+                    <h2>Add a Note</h2>
+                    <p>It appears you haven't created any notes yet... Lets fix that. Why don't you go ahead and create a new note.</p>
+                  <% end %>
+              </div>
+            </div>
+          </div>
+          <!-- End Notes tab -->
+    <!-- Start Documents tab -->
+    <div role="tabpanel" class="tab-pane" id="documents">
+      <div class="col-md-12">
 
-			<h3>Documents <button type="button" class="button" data-toggle="modal" data-target="#docModal">+</button></h3>
-			<table class="table table-striped">
-			  <thead>
-			    <tr>
-			      <th>Name</th>
-			      <th>Download Link</th>
-			      <th></th>
-			    </tr>
-			  </thead>
+        <button type="button" class="button" data-toggle="modal" data-target="#docModal">+</button>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Download Link</th>
+              <th></th>
+            </tr>
+          </thead>
 
-			  <tbody>
-			    <% @project.documents.each do |document| %>
-			      <tr>
-			        <td><%= document.name %></td>
-			        <td><%= link_to "Download Document", document.attachment_url %></td>
-			        <td><%= button_to "Delete", document, method: :delete, :class => "btn btn-danger", confirm: "Are you sure that you wish to delete #{document.name}?" %></td>
-			      </tr>
-			    <% end %>
-			  </tbody>
-			</table>
-			<div>
-		</div>
-	</div>
-	<!-- End Documents tab -->
-  </div>
-  <!-- Start Members tab -->
-  <div role="tabpanel" class="tab-pane" id="members">
-  	<div class="col-md-12">
-			<h3>Members</h3>
-			<div style="padding-left:20px;">
-				<% unless @project.memberships.blank? %>
-					<% @project.memberships.each do |membership| %>
-						<p><%= membership.user.email %></p>
-					<% end %>
-				<% end %>
-				<% if current_user.memberships.where(:project_id => @project.id).exists? %>
-				<% @project.memberships.each do |membership| %>
-					<%= link_to 'Leave Project', membership, :data => { :confirm => "Are you sure?" }, :method => :delete, :class => "button" %>
-				<% end %>
-			<% else %>
-				<%= link_to "Join Project", project_join_path(@project), :class => "button" %>
-			<% end %>
-			</div>
-		</div>
-	</div>
-	<!-- End Members tab -->
+          <tbody>
+            <% @project.documents.each do |document| %>
+              <tr>
+                <td><%= document.name %></td>
+                <td><%= link_to "Download Document", document.attachment_url %></td>
+                <td><%= button_to "Delete", document, method: :delete, :class => "btn btn-danger", confirm: "Are you sure that you wish to delete #{document.name}?" %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div>
+      </div>
+    </div>
+    <!-- End Documents tab -->
+    </div>
+    <!-- Start Members tab -->
+    <div role="tabpanel" class="tab-pane" id="members">
+      <div class="col-md-12">
+        <div style="padding-left:20px;">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>User</th>
+              <th></th>
+            </tr>
+          </thead>
+          <% unless @project.memberships.blank? %>
+          <tbody>
+            <% @project.memberships.each do |membership| %>
+              <tr>
+                <td><%= membership.user.email%></td>
+                  <% end %>
+                <% end %>
+                <% if current_user.memberships.where(:project_id => @project.id).exists? %>
+                <% @project.memberships.each do |membership| %>
+                  <td><%= link_to 'Leave Project', membership, :data => { :confirm => "Are you sure?" }, :method => :delete, :class => "button" %></td>
+                <% end %>
+              <% else %>
+                <td><%= link_to "Join Project", project_join_path(@project), :class => "button" %></td>
+              <% end %>
+              </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+    <!-- End Members tab -->
 </div>
 
 
@@ -92,50 +111,50 @@
 
 
 <div class="modal fade" id="docModal" tabindex="-1" role="dialog" aria-labelledby="docModalLabel" aria-hidden="true">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title">Create Document</h4>
-	      </div>
-	      <div class="modal-body">
-	      	<%= form_for [@project, @document] do |f| %>
-	          <%= f.hidden_field :project_id, :value => @project.id %>
-		      <p><label>Title</label><%= f.text_field :name %></p>
-	          <p><label>Attachment</label><%= f.file_field :attachment %></p>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Create Document</h4>
+        </div>
+        <div class="modal-body">
+          <%= form_for [@project, @document] do |f| %>
+            <%= f.hidden_field :project_id, :value => @project.id %>
+          <p><label>Title</label><%= f.text_field :name %></p>
+            <p><label>Attachment</label><%= f.file_field :attachment %></p>
 
 
-	      </div>
-	      <div class="modal-footer">
-	      		<%= f.submit "Create", :class => 'btn btn-primary pull-right' %>
-          	<% end %>
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	      </div>
-	    </div><!-- /.modal-content -->
-	  </div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
+        </div>
+        <div class="modal-footer">
+            <%= f.submit "Create", :class => 'btn btn-primary pull-right' %>
+            <% end %>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
 
 
 <div class="modal fade" id="noteModal" tabindex="-1" role="dialog" aria-labelledby="noteModalLabel" aria-hidden="true">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title">Create Note</h4>
-	      </div>
-	      <div class="modal-body">
-	      	<%= form_for [@project, @note] do |f| %>
-	          <%= f.hidden_field :project_id, :value => @project.id %>
-		      <p><label>Title</label><%= f.text_field :title %></p>
-	          <p><label>Description</label><%= f.text_field :content %></p>
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Create Note</h4>
+        </div>
+        <div class="modal-body">
+          <%= form_for [@project, @note] do |f| %>
+            <%= f.hidden_field :project_id, :value => @project.id %>
+          <p><label>Title</label><%= f.text_field :title %></p>
+            <p><label>Description</label><%= f.text_field :content %></p>
 
 
-	      </div>
-	      <div class="modal-footer">
-	      		<%= f.submit "Create", :class => 'btn btn-primary pull-right' %>
-          	<% end %>
-	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	      </div>
-	    </div><!-- /.modal-content -->
-	  </div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
+        </div>
+        <div class="modal-footer">
+            <%= f.submit "Create", :class => 'btn btn-primary pull-right' %>
+            <% end %>
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->

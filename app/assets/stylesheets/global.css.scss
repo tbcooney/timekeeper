@@ -76,7 +76,7 @@ header {
   position: fixed;
   top: 0;
   width: 100%;
-  padding: 1.75rem 0;
+  padding: 0.9rem 0;
   border-bottom: 7px solid $purple;
   .header_inner {
     width: 90%;
@@ -100,17 +100,6 @@ header {
       }
     }
   }
-}
-
-.sidebar {
-  float: right;
-  width: 30%;
-  padding: 1.5rem 2.5%;
-  display: block;
-  background: $dark_gray;
-    @include bold_font;
-      color: white;
-      letter-spacing: 1px;
 }
 
 footer {
