@@ -8,7 +8,6 @@ Rails.application.routes.draw do
   resources :notes, :documents
   devise_for :users
   get 'welcome/index'
-  resources :notes, :documents
 
   authenticated :user do
       root 'projects#index', as: "authenticated_root"

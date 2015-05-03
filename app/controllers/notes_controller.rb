@@ -7,6 +7,7 @@ class NotesController < ApplicationController
 
     def new
         @note = current_user.notes.build
+        @project = Project.find(params[:project])
     end
 
     def create
